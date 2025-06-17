@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPT Tutor Launcher</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2rem;
+      max-width: 600px;
+      margin: auto;
+      background-color: #f4f4f4;
+    }
+    h2 {
+      text-align: center;
+    }
+    label {
+      margin-top: 20px;
+      display: block;
+      font-weight: bold;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      font-size: 1rem;
+    }
+    #next-step {
+      margin-top: 30px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: green;
+    }
+  </style>
+</head>
+<body>
+  <h2>Welcome to the GPT Tutor</h2>
+
+  <label for="student-id">Enter your 6-digit Student ID:</label>
+  <input type="text" id="student-id" maxlength="6" placeholder="e.g., STU003" />
+
+  <label for="course">Select your course:</label>
+  <select id="course">
+    <option value="">-- Select Course --</option>
+    <option value="Project Management">Project Management</option>
+    <option value="Engineering Communication">Engineering Communication</option>
+    <option value="Ethical Decision Making">Ethical Decision Making</option>
+    <option value="Leading Others">Leading Others</option>
+  </select>
+
+  <label for="lesson">Enter the lesson title:</label>
+  <input type="text" id="lesson" placeholder="e.g., Scope Management" />
+
+  <button onclick="captureInputs()">Start Tutoring Session</button>
+
+  <div id="next-step"></div>
+
+  <script>
+    function captureInputs() {
+      const studentId = document.getElementById('student-id').value.trim();
+      const course = document.getElementById('course').value.trim();
+      const lesson = document.getElementById('lesson').value.trim();
+
+      if (!studentId || !course || !lesson) {
+        document.getElementById('next-step').innerText = '❌ Please complete all fields before continuing.';
+        return;
+      }
+
+      document.getElementById('next-step').innerText = `✅ Ready to begin tutoring for ${studentId} in "${lesson}" (${course}).`;
+
+      // GPT integration and score submission logic comes next.
+    }
+  </script>
+</body>
+</html>
