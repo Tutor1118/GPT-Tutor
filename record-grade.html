@@ -1,0 +1,62 @@
+<!-- get-tutor.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GPT Tutorial Score Recorder</title>
+  <style>
+    body { font-family: sans-serif; padding: 2rem; }
+    input, select, button { margin: 0.5rem 0; padding: 0.5rem; width: 100%; max-width: 400px; }
+    .hidden { display: none; }
+    .success { color: green; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <h2>GPT Tutor Score Submission</h2>
+
+  <label for="studentID">Student ID:</label>
+  <input type="text" id="studentID" placeholder="Enter your 6-digit ID" required />
+
+  <label for="course">Course:</label>
+  <select id="course">
+    <option value="Project Management">Project Management</option>
+    <option value="Engineering Communication">Engineering Communication</option>
+    <option value="Ethical Decision Making">Ethical Decision Making</option>
+    <option value="Leading Others">Leading Others</option>
+  </select>
+
+  <label for="lesson">Lesson Title:</label>
+  <input type="text" id="lesson" placeholder="Enter lesson title" required />
+
+  <label for="score">Score (0–20):</label>
+  <input type="number" id="score" min="0" max="20" required />
+
+  <button onclick="submitScore()">Submit Score</button>
+
+  <p id="successMessage" class="success hidden">✅ Your score has been recorded.</p>
+
+  <script>
+    function submitScore() {
+      const studentID = document.getElementById('studentID').value.trim();
+      const course = document.getElementById('course').value;
+      const lesson = document.getElementById('lesson').value.trim();
+      const score = document.getElementById('score').value;
+
+      const url = `https://script.google.com/a/macros/colorado.edu/s/AKfycbwAc5KdJ-iAUjmzIPoVX7MLZGU4xVyJpGQZ3vLUsvn87O7GVC_J_vcYv7Y-y8uCsGGQ/exec` +
+                  `?studentID=${encodeURIComponent(studentID)}` +
+                  `&course=${encodeURIComponent(course)}` +
+                  `&lesson=${encodeURIComponent(lesson)}` +
+                  `&score=${encodeURIComponent(score)}`;
+
+      fetch(url)
+        .then(response => response.text())
+        .then(data => {
+          console.log(data);
+          document.getElementById('successMessage').classList.remove('hidden');
+        })
+        .catch(err => alert("Error submitting score: " + err));
+    }
+  </script>
+</body>
+</html>
